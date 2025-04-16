@@ -1,14 +1,60 @@
+
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
-
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+    // Tamanho fixo do tabuleiro 10x10 com valor inicial 0.
+    int tabuleiro[10][10] = {0};
+
+    // Tamanho fixo dos navios: 3 posições
+    int tamanhoNavio = 3;
+
+    // Coordenadas iniciais do navio Horizontal (linha, coluna)
+    int linhaNavioHorizontal = 2;
+    int colunaNavioHorizontal = 4;
+    // Coordenadas iniciais do navio Vertical (linha, coluna)
+    int linhaNavioVertical = 5;
+    int colunaNavioVertical = 7;
+
+    // Validação: Garantir que os navios estejam dentro dos limites do tabuleiro.
+    if (colunaNavioHorizontal + tamanhoNavio <= 10 && linhaNavioVertical + tamanhoNavio <= 10) {
+
+        // Posicionar navio horizontalmente
+        for (int i = 0; i < tamanhoNavio; i++) {
+            tabuleiro[linhaNavioHorizontal][colunaNavioHorizontal + i] = 3;
+        }
+
+        // Posicionar navio verticalmente (verificando sobreposição)
+        for (int i = 0; i < tamanhoNavio; i++) {
+            int linhaAtual = linhaNavioVertical + i;
+            int colunaAtual = colunaNavioVertical;
+
+            if (tabuleiro[linhaAtual][colunaAtual] == 0) {
+                tabuleiro[linhaAtual][colunaAtual] = 3;
+            } else {
+                printf("Erro: Sobreposição de navios detectada na posição (%d, %d).\n", linhaAtual, colunaAtual);
+                return 1;
+            }
+        }
+
+        // Exibir o tabuleiro
+        printf("TABULEIRO DE BATALHA NAVAL:\n");
+        printf("*********************************\n");
+        printf(" A  B  C  D  E  F  G  H  I  J\n");
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                printf(" %d ", tabuleiro[i][j]);
+            }
+            printf("\n");
+        }
+
+    } else {
+        printf("Erro: As coordenadas dos navios ultrapassam os limites do tabuleiro.\n");
+        return 1;
+    }
+
+    return 0;
+}
+
 
     // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
     // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
@@ -36,5 +82,4 @@ int main() {
     // 1 1 1 1 1
     // 0 0 1 0 0
 
-    return 0;
-}
+    
